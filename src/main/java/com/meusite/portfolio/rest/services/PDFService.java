@@ -27,6 +27,20 @@ public class PDFService {
 
     private static final String BRASILEIRO_SOLTEIRO = "Brasileiro, Solteiro";
 
+    private static final String DATA_NASCIMENTO = "Data de Nascimento: 08/11/1995 - 27 Anos";
+
+    private static final String HABILITACAO = "Habilitação: Categoria A/B";
+
+    private static final String RUA_BAIRRO = "Pedro Michelotto, 70 - Jardim Serelepe";
+
+    private static final String CIDADE_ESTADO_CEP = "Leme, São Paulo - Cep: 13611-205";
+
+    private static final String CONTATO = "Contato: (19) 9 9590 - 4628";
+
+    private static final String EMAIL = "E-mail: jair.lopes@fatec.sp.gov.br";
+
+    private static final Integer SEIS = 6;
+
     private static final Integer DOZE = 12;
 
     private static final Integer VINTE_QUATRO = 24;
@@ -39,10 +53,23 @@ public class PDFService {
              Document doc = new Document(pdfDocument)) {
             Color black = new DeviceRgb(0, 0, 0);
 
-            doc.add(this.buildParagraph(JAIR_LOPES_JUNIOR, VINTE_QUATRO, TextAlignment.CENTER, new DeviceRgb(47, 168, 186), true));
-            this.jumpLine();
+            doc.add(this.buildParagraph(JAIR_LOPES_JUNIOR, VINTE_QUATRO, TextAlignment.CENTER, new DeviceRgb(47, 168, 186),
+                    true, false));
+            doc.add(this.jumpLine());
 
-            doc.add(this.buildParagraph(BRASILEIRO_SOLTEIRO, DOZE, TextAlignment.RIGHT, black, false));
+            doc.add(this.buildParagraph(BRASILEIRO_SOLTEIRO, DOZE, TextAlignment.RIGHT, black, false, false));
+
+            doc.add(this.buildParagraph(DATA_NASCIMENTO, DOZE, TextAlignment.RIGHT, black, false, false));
+
+            doc.add(this.buildParagraph(HABILITACAO, DOZE, TextAlignment.RIGHT, black, false, false));
+
+            doc.add(this.buildParagraph(RUA_BAIRRO, DOZE, TextAlignment.RIGHT, black, false, false));
+
+            doc.add(this.buildParagraph(CIDADE_ESTADO_CEP, DOZE, TextAlignment.RIGHT, black, false, false));
+
+            doc.add(this.buildParagraph(CONTATO, DOZE, TextAlignment.RIGHT, black, false, false));
+
+            doc.add(this.buildParagraph(EMAIL, DOZE, TextAlignment.RIGHT, black, false, true));
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
@@ -57,18 +84,23 @@ public class PDFService {
                 .body(baos.toByteArray());
     }
 
-    private Paragraph buildParagraph(String text, Integer fontSize, TextAlignment textAlignment, Color color, boolean isBold) {
+    private Paragraph buildParagraph(String text, Integer fontSize, TextAlignment textAlignment, Color color, boolean isBold,
+                                     boolean isLink) {
         Paragraph p = new Paragraph(text);
         p.setFontSize(fontSize);
         p.setTextAlignment(textAlignment);
         p.setFontColor(color);
+        p.setFixedLeading(SEIS);
+        if (isLink) {
+            p.setUnderline();
+        }
         if (isBold) {
             p.setBold();
         }
         return p;
     }
 
-    private void jumpLine() {
-        new Paragraph().add(new Text("\n"));
+    private Paragraph jumpLine() {
+        return new Paragraph().add(new Text("\n"));
     }
 }
