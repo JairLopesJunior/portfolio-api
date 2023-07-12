@@ -7,6 +7,7 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.TextAlignment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -24,6 +25,10 @@ public class PDFService {
 
     private static final String JAIR_LOPES_JUNIOR = "Jair Lopes Junior";
 
+    private static final String BRASILEIRO_SOLTEIRO = "Brasileiro, Solteiro";
+
+    private static final Integer DOZE = 12;
+
     private static final Integer VINTE_QUATRO = 24;
 
     public ResponseEntity<Object> generateFile() {
@@ -32,8 +37,12 @@ public class PDFService {
         try (PdfWriter writer = new PdfWriter(baos);
              PdfDocument pdfDocument = new PdfDocument(writer);
              Document doc = new Document(pdfDocument)) {
+            Color black = new DeviceRgb(0, 0, 0);
 
-            doc.add(this.addParagraph(JAIR_LOPES_JUNIOR, VINTE_QUATRO, TextAlignment.CENTER, new DeviceRgb(47, 168, 186), true));
+            doc.add(this.buildParagraph(JAIR_LOPES_JUNIOR, VINTE_QUATRO, TextAlignment.CENTER, new DeviceRgb(47, 168, 186), true));
+            this.jumpLine();
+
+            doc.add(this.buildParagraph(BRASILEIRO_SOLTEIRO, DOZE, TextAlignment.RIGHT, black, false));
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
@@ -48,7 +57,7 @@ public class PDFService {
                 .body(baos.toByteArray());
     }
 
-    private Paragraph addParagraph(String text, Integer fontSize, TextAlignment textAlignment, Color color, boolean isBold) {
+    private Paragraph buildParagraph(String text, Integer fontSize, TextAlignment textAlignment, Color color, boolean isBold) {
         Paragraph p = new Paragraph(text);
         p.setFontSize(fontSize);
         p.setTextAlignment(textAlignment);
@@ -57,5 +66,9 @@ public class PDFService {
             p.setBold();
         }
         return p;
+    }
+
+    private void jumpLine() {
+        new Paragraph().add(new Text("\n"));
     }
 }
