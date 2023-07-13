@@ -39,9 +39,13 @@ public class PDFService {
 
     private static final String EMAIL = "E-mail: jair.lopes@fatec.sp.gov.br";
 
+    private static final String EXPERIENCIA_PROFISSIONAL = "Experiência Profissional";
+
     private static final Integer SEIS = 6;
 
     private static final Integer DOZE = 12;
+
+    private static final Integer QUINZE = 15;
 
     private static final Integer VINTE_QUATRO = 24;
 
@@ -51,25 +55,11 @@ public class PDFService {
         try (PdfWriter writer = new PdfWriter(baos);
              PdfDocument pdfDocument = new PdfDocument(writer);
              Document doc = new Document(pdfDocument)) {
-            Color black = new DeviceRgb(0, 0, 0);
 
-            doc.add(this.buildParagraph(JAIR_LOPES_JUNIOR, VINTE_QUATRO, TextAlignment.CENTER, new DeviceRgb(47, 168, 186),
-                    true, false));
-            doc.add(this.jumpLine());
+            this.buildEssentialInformation(doc);
 
-            doc.add(this.buildParagraph(BRASILEIRO_SOLTEIRO, DOZE, TextAlignment.RIGHT, black, false, false));
+            this.buildProfessionalExperience(doc);
 
-            doc.add(this.buildParagraph(DATA_NASCIMENTO, DOZE, TextAlignment.RIGHT, black, false, false));
-
-            doc.add(this.buildParagraph(HABILITACAO, DOZE, TextAlignment.RIGHT, black, false, false));
-
-            doc.add(this.buildParagraph(RUA_BAIRRO, DOZE, TextAlignment.RIGHT, black, false, false));
-
-            doc.add(this.buildParagraph(CIDADE_ESTADO_CEP, DOZE, TextAlignment.RIGHT, black, false, false));
-
-            doc.add(this.buildParagraph(CONTATO, DOZE, TextAlignment.RIGHT, black, false, false));
-
-            doc.add(this.buildParagraph(EMAIL, DOZE, TextAlignment.RIGHT, black, false, true));
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
@@ -82,6 +72,35 @@ public class PDFService {
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(baos.toByteArray());
+    }
+
+    private void buildEssentialInformation(Document doc) {
+        Color black = new DeviceRgb(0, 0, 0);
+
+        doc.add(this.buildParagraph(JAIR_LOPES_JUNIOR, VINTE_QUATRO, TextAlignment.CENTER, new DeviceRgb(47, 168, 186),
+                true, false));
+        doc.add(this.jumpLine());
+
+        doc.add(this.buildParagraph(BRASILEIRO_SOLTEIRO, DOZE, TextAlignment.RIGHT, black, false, false));
+
+        doc.add(this.buildParagraph(DATA_NASCIMENTO, DOZE, TextAlignment.RIGHT, black, false, false));
+
+        doc.add(this.buildParagraph(HABILITACAO, DOZE, TextAlignment.RIGHT, black, false, false));
+
+        doc.add(this.buildParagraph(RUA_BAIRRO, DOZE, TextAlignment.RIGHT, black, false, false));
+
+        doc.add(this.buildParagraph(CIDADE_ESTADO_CEP, DOZE, TextAlignment.RIGHT, black, false, false));
+
+        doc.add(this.buildParagraph(CONTATO, DOZE, TextAlignment.RIGHT, black, false, false));
+
+        doc.add(this.buildParagraph(EMAIL, DOZE, TextAlignment.RIGHT, black, false, true));
+        doc.add(this.jumpLine());
+    }
+
+    private void buildProfessionalExperience(Document doc) {
+        Color black = new DeviceRgb(0, 0, 0);
+
+        doc.add(this.buildParagraph(EXPERIENCIA_PROFISSIONAL, QUINZE, TextAlignment.LEFT, black, true, false));
     }
 
     private Paragraph buildParagraph(String text, Integer fontSize, TextAlignment textAlignment, Color color, boolean isBold,
