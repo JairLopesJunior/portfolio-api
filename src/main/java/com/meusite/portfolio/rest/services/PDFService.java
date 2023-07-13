@@ -6,6 +6,8 @@ import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.List;
+import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.TextAlignment;
@@ -41,11 +43,21 @@ public class PDFService {
 
     private static final String EXPERIENCIA_PROFISSIONAL = "Experiência Profissional";
 
+    private static final String EMPRESA_VARITUS_BRASIL = "Empresa: Varitus Brasil";
+
+    private static final String ENDERECO_VARITUS_BRASIL = "Endereço: Rua Coronel André Ulson Júnior, 250";
+
+    private static final String CIDADE_ARARAS_SP = "Cidade: Araras - SP";
+
+    private static final String ESTAGIO_TI_VARITUS = "Estágio em TI · Início: 10/2018 / Término: 10/2020";
+
+    private static final String CARGO_VARITUS = "Programador Junior I · Início: 10/2020 / Término: 09/2021";
+
     private static final Integer SEIS = 6;
 
     private static final Integer DOZE = 12;
 
-    private static final Integer QUINZE = 15;
+    private static final Integer QUATORZE = 14;
 
     private static final Integer VINTE_QUATRO = 24;
 
@@ -100,7 +112,17 @@ public class PDFService {
     private void buildProfessionalExperience(Document doc) {
         Color black = new DeviceRgb(0, 0, 0);
 
-        doc.add(this.buildParagraph(EXPERIENCIA_PROFISSIONAL, QUINZE, TextAlignment.LEFT, black, true, false));
+        doc.add(this.buildParagraph(EXPERIENCIA_PROFISSIONAL, QUATORZE, TextAlignment.LEFT, black, true, false));
+
+        doc.add(this.buildList(EMPRESA_VARITUS_BRASIL));
+
+        doc.add(this.buildList(ENDERECO_VARITUS_BRASIL));
+
+        doc.add(this.buildList(CIDADE_ARARAS_SP));
+
+        doc.add(this.buildList(ESTAGIO_TI_VARITUS));
+
+        doc.add(this.buildList(CARGO_VARITUS));
     }
 
     private Paragraph buildParagraph(String text, Integer fontSize, TextAlignment textAlignment, Color color, boolean isBold,
@@ -121,5 +143,14 @@ public class PDFService {
 
     private Paragraph jumpLine() {
         return new Paragraph().add(new Text("\n"));
+    }
+
+    private List buildList(String text) {
+        List list = new List();
+        ListItem listItem = new ListItem(text);
+        listItem.setMarginBottom(0);
+        list.add(listItem);
+        list.setFontSize(DOZE);
+        return list;
     }
 }
