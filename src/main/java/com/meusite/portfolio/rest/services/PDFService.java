@@ -77,9 +77,27 @@ public class PDFService {
 
     private static final String CARGO_COGNIZANT = "Programador de Software · Início: 07/2022";
 
+    private static final String INFORMACOES_ACADEMICAS = "Informações Acadêmicas";
+
+    private static final String TECNICO_INFORMATICA_PARA_INTERNET = "TÉCNICO | ETEC PREFEITO ALBERTO FERES | 01/2016 – 06/2017";
+
+    private static final String GRADUACAO_SISTEMAS_PARA_INTERNET = "GRADUAÇÃO | FATEC - FACULDADE DE TECNOLOGIA DE ARARAS | 06/2017 – 06/2020";
+
+    private static final String GRADUACAO_DESENVOLVIMENTO_SOFTWARE_MULTIPLATAFORMA = "GRADUAÇÃO | FATEC - FACULDADE DE TECNOLOGIA DE ARARAS | 06/2021 – 06/2024";
+
+    private static final String CURSO_INFORMATICA_PARA_INTERNET = "Curso: Informática para Internet";
+
+    private static final String CURSO_SISTEMAS_PARA_INTERNET = "Curso: Sistemas para Internet";
+
+    private static final String CURSO_DESENVOLVIMENTO_SOFTWARE_MULTIPLATAFORMA = "Curso: Desenvolvimento de Software Multiplataforma";
+
+    private static final String PERIODO_NOTURNO = "Período: Noturno";
+
     private static final Integer SEIS = 6;
 
     private static final Integer DOZE = 12;
+
+    private static final Integer TREZE = 13;
 
     private static final Integer QUATORZE = 14;
 
@@ -95,6 +113,8 @@ public class PDFService {
             this.buildEssentialInformation(doc);
 
             this.buildProfessionalExperience(doc);
+
+            this.buildAcademicInformation(doc);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -115,7 +135,7 @@ public class PDFService {
 
         doc.add(this.buildParagraph(JAIR_LOPES_JUNIOR, VINTE_QUATRO, TextAlignment.CENTER, new DeviceRgb(47, 168, 186),
                 true, false));
-        doc.add(this.jumpLine());
+        doc.add(new Paragraph(new Text("\n")));
 
         doc.add(this.buildParagraph(BRASILEIRO_SOLTEIRO, DOZE, TextAlignment.RIGHT, black, false, false));
 
@@ -130,7 +150,7 @@ public class PDFService {
         doc.add(this.buildParagraph(CONTATO, DOZE, TextAlignment.RIGHT, black, false, false));
 
         doc.add(this.buildParagraph(EMAIL, DOZE, TextAlignment.RIGHT, black, false, true));
-        doc.add(this.jumpLine());
+        doc.add(new Paragraph(new Text("\n")));
     }
 
     private void buildProfessionalExperience(Document doc) {
@@ -148,6 +168,33 @@ public class PDFService {
         doc.add(this.jumpLine());
 
         this.buildProfessionalExperienceCognizant(doc);
+        doc.add(this.jumpLine());
+    }
+
+    private void buildAcademicInformation(Document doc) {
+        Color black = new DeviceRgb(0, 0, 0);
+
+        doc.add(this.buildParagraph(INFORMACOES_ACADEMICAS, QUATORZE, TextAlignment.LEFT, black, true, false));
+
+        doc.add(this.buildParagraph(TECNICO_INFORMATICA_PARA_INTERNET, DOZE, TextAlignment.LEFT, black, true, false));
+
+        doc.add(this.buildList(CURSO_INFORMATICA_PARA_INTERNET));
+
+        doc.add(this.buildList(PERIODO_NOTURNO));
+        doc.add(this.jumpLine());
+
+        doc.add(this.buildParagraph(GRADUACAO_SISTEMAS_PARA_INTERNET, DOZE, TextAlignment.LEFT, black, true, false));
+
+        doc.add(this.buildList(CURSO_SISTEMAS_PARA_INTERNET));
+
+        doc.add(this.buildList(PERIODO_NOTURNO));
+        doc.add(this.jumpLine());
+
+        doc.add(this.buildParagraph(GRADUACAO_DESENVOLVIMENTO_SOFTWARE_MULTIPLATAFORMA, DOZE, TextAlignment.LEFT, black, true, false));
+
+        doc.add(this.buildList(CURSO_DESENVOLVIMENTO_SOFTWARE_MULTIPLATAFORMA));
+
+        doc.add(this.buildList(PERIODO_NOTURNO));
         doc.add(this.jumpLine());
     }
 
@@ -210,7 +257,7 @@ public class PDFService {
     }
 
     private Paragraph jumpLine() {
-        return new Paragraph().add(new Text("\n"));
+        return new Paragraph().setPaddingBottom(2f);
     }
 
     private List buildList(String text) {
