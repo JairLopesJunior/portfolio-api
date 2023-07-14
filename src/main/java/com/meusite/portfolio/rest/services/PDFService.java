@@ -107,11 +107,15 @@ public class PDFService {
 
     private static final String ANGULAR = "Angular";
 
+    private static final String IDIOMAS = "Idiomas";
+
+    private static final String INGLES = "INGLÊS";
+
+    private static final String NIVEL_INGLES = "TOEIC: Listening: 185 / Reading: 210 / Total Score: 395 - A2";
+
     private static final Integer SEIS = 6;
 
     private static final Integer DOZE = 12;
-
-    private static final Integer TREZE = 13;
 
     private static final Integer QUATORZE = 14;
 
@@ -131,6 +135,8 @@ public class PDFService {
             this.buildAcademicInformation(doc);
 
             this.buildOutrosCursos(doc);
+
+            this.buildIdiomas(doc);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -231,6 +237,16 @@ public class PDFService {
 
         doc.add(this.buildList(ANGULAR));
         doc.add(this.jumpLine());
+    }
+
+    private void buildIdiomas(Document doc) {
+        Color black = new DeviceRgb(0, 0, 0);
+
+        doc.add(this.buildParagraph(IDIOMAS, QUATORZE, TextAlignment.LEFT, black, true, false));
+
+        doc.add(this.buildParagraph(INGLES, DOZE, TextAlignment.LEFT, black, true, false));
+
+        doc.add(this.buildList(NIVEL_INGLES));
     }
 
     private void buildProfessionalExperienceVaritusBrasil(Document doc) {
