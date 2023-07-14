@@ -41,6 +41,8 @@ public class PDFService {
 
     private static final String EMAIL = "E-mail: jair.lopes@fatec.sp.gov.br";
 
+    private static final String GITHUB = "GitHub: https://github.com/JairLopesJunior";
+
     private static final String EXPERIENCIAS_PROFISSIONAIS = "Experiências Profissionais";
 
     private static final String EMPRESA_VARITUS_BRASIL = "Empresa: Varitus Brasil";
@@ -164,6 +166,8 @@ public class PDFService {
         doc.add(this.buildParagraph(CONTATO, DOZE, TextAlignment.RIGHT, black, false, false));
 
         doc.add(this.buildParagraph(EMAIL, DOZE, TextAlignment.RIGHT, black, false, true));
+
+        doc.add(this.buildParagraph(GITHUB, DOZE, TextAlignment.RIGHT, black, false, true));
         doc.add(new Paragraph(new Text("\n")));
     }
 
