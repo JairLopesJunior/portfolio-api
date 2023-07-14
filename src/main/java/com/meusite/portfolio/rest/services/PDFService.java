@@ -93,6 +93,18 @@ public class PDFService {
 
     private static final String PERIODO_NOTURNO = "Período: Noturno";
 
+    private static final String OUTROS_CURSOS = "Outros Cursos";
+
+    private static final String CURSO_JAVA_OITO = "Curso: Java 8 - (Lambda Expressions, API de Data e Hora, Collections)";
+
+    private static final String LINUX_BASICO = "Linux Básico";
+
+    private static final String JAVASCRIPT = "JavaScript: Iniciante/Mestre";
+
+    private static final String SPRING_BOOT_EXPERT = "Spring Boot Expert: JPA, RESTFul API, Security, JWT e Mais.";
+
+    private static final String ANGULAR = "Angular";
+
     private static final Integer SEIS = 6;
 
     private static final Integer DOZE = 12;
@@ -115,6 +127,8 @@ public class PDFService {
             this.buildProfessionalExperience(doc);
 
             this.buildAcademicInformation(doc);
+
+            this.buildOutrosCursos(doc);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -195,6 +209,23 @@ public class PDFService {
         doc.add(this.buildList(CURSO_DESENVOLVIMENTO_SOFTWARE_MULTIPLATAFORMA));
 
         doc.add(this.buildList(PERIODO_NOTURNO));
+        doc.add(this.jumpLine());
+    }
+
+    private void buildOutrosCursos(Document doc) {
+        Color black = new DeviceRgb(0, 0, 0);
+
+        doc.add(this.buildParagraph(OUTROS_CURSOS, QUATORZE, TextAlignment.LEFT, black, true, false));
+
+        doc.add(this.buildList(CURSO_JAVA_OITO));
+
+        doc.add(this.buildList(LINUX_BASICO));
+
+        doc.add(this.buildList(JAVASCRIPT));
+
+        doc.add(this.buildList(SPRING_BOOT_EXPERT));
+
+        doc.add(this.buildList(ANGULAR));
         doc.add(this.jumpLine());
     }
 
