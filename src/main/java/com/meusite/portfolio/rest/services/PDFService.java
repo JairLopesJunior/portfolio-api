@@ -41,7 +41,7 @@ public class PDFService {
 
     private static final String EMAIL = "E-mail: jair.lopes@fatec.sp.gov.br";
 
-    private static final String EXPERIENCIA_PROFISSIONAL = "Experiência Profissional";
+    private static final String EXPERIENCIAS_PROFISSIONAIS = "Experiências Profissionais";
 
     private static final String EMPRESA_VARITUS_BRASIL = "Empresa: Varitus Brasil";
 
@@ -51,7 +51,31 @@ public class PDFService {
 
     private static final String ESTAGIO_TI_VARITUS = "Estágio em TI · Início: 10/2018 / Término: 10/2020";
 
-    private static final String CARGO_VARITUS = "Programador Junior I · Início: 10/2020 / Término: 09/2021";
+    private static final String CARGO_VARITUS_BRASIL = "Programador Junior I · Início: 10/2020 / Término: 09/2021";
+
+    private static final String EMPRESA_VR_SOFTWARE = "Empresa: VR Software";
+
+    private static final String ENDERECO_VR_SOFTWARE = "Endereço: Rua Narciso Gonçalves, 59";
+
+    private static final String CIDADE_LIMEIRA_SP = "Cidade: Limeira - SP";
+
+    private static final String CARGO_VR_SOFTWARE = "Programador WEB · Início: 09/2021 / Término: 03/2022";
+
+    private static final String EMPRESA_ELOTECH = "Empresa: Elotech Gestão Pública";
+
+    private static final String ENDERECO_ELOTECH = "Endereço: Rua Tupã, 1643";
+
+    private static final String CIDADE_MARINGA_PR = "Cidade: Maringá - PR";
+
+    private static final String CARGO_ELOTECH = "Programador de Sistemas de Informação · Início: 03/2022 / Término: 06/2022";
+
+    private static final String EMPRESA_COGNIZANT = "Empresa: Cognizant Technology Solutions";
+
+    private static final String ENDERECO_COGNIZANT = "Endereço: Rua Jaceru, 151";
+
+    private static final String CIDADE_SAO_PAULO_SP = "Cidade: São Paulo - SP";
+
+    private static final String CARGO_COGNIZANT = "Programador de Software · Início: 07/2022";
 
     private static final Integer SEIS = 6;
 
@@ -112,8 +136,22 @@ public class PDFService {
     private void buildProfessionalExperience(Document doc) {
         Color black = new DeviceRgb(0, 0, 0);
 
-        doc.add(this.buildParagraph(EXPERIENCIA_PROFISSIONAL, QUATORZE, TextAlignment.LEFT, black, true, false));
+        doc.add(this.buildParagraph(EXPERIENCIAS_PROFISSIONAIS, QUATORZE, TextAlignment.LEFT, black, true, false));
 
+        this.buildProfessionalExperienceVaritusBrasil(doc);
+        doc.add(this.jumpLine());
+
+        this.buildProfessionalExperienceVRSoftware(doc);
+        doc.add(this.jumpLine());
+
+        this.buildProfessionalExperienceElotech(doc);
+        doc.add(this.jumpLine());
+
+        this.buildProfessionalExperienceCognizant(doc);
+        doc.add(this.jumpLine());
+    }
+
+    private void buildProfessionalExperienceVaritusBrasil(Document doc) {
         doc.add(this.buildList(EMPRESA_VARITUS_BRASIL));
 
         doc.add(this.buildList(ENDERECO_VARITUS_BRASIL));
@@ -122,7 +160,37 @@ public class PDFService {
 
         doc.add(this.buildList(ESTAGIO_TI_VARITUS));
 
-        doc.add(this.buildList(CARGO_VARITUS));
+        doc.add(this.buildList(CARGO_VARITUS_BRASIL));
+    }
+
+    private void buildProfessionalExperienceVRSoftware(Document doc) {
+        doc.add(this.buildList(EMPRESA_VR_SOFTWARE));
+
+        doc.add(this.buildList(ENDERECO_VR_SOFTWARE));
+
+        doc.add(this.buildList(CIDADE_LIMEIRA_SP));
+
+        doc.add(this.buildList(CARGO_VR_SOFTWARE));
+    }
+
+    private void buildProfessionalExperienceElotech(Document doc) {
+        doc.add(this.buildList(EMPRESA_ELOTECH));
+
+        doc.add(this.buildList(ENDERECO_ELOTECH));
+
+        doc.add(this.buildList(CIDADE_MARINGA_PR));
+
+        doc.add(this.buildList(CARGO_ELOTECH));
+    }
+
+    private void buildProfessionalExperienceCognizant(Document doc) {
+        doc.add(this.buildList(EMPRESA_COGNIZANT));
+
+        doc.add(this.buildList(ENDERECO_COGNIZANT));
+
+        doc.add(this.buildList(CIDADE_SAO_PAULO_SP));
+
+        doc.add(this.buildList(CARGO_COGNIZANT));
     }
 
     private Paragraph buildParagraph(String text, Integer fontSize, TextAlignment textAlignment, Color color, boolean isBold,
